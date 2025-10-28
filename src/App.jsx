@@ -1,28 +1,20 @@
-import { useState } from 'react'
+import React, { useState } from 'react';
+import LoaderCanvas from './components/LoaderCanvas';
+import HeroSection from './components/HeroSection';
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [done, setDone] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
+    <div className="min-h-screen w-full bg-black text-white">
+      {!done && (
+        <div className="fixed inset-0 z-50 bg-black">
+          <LoaderCanvas onComplete={() => setDone(true)} />
         </div>
-      </div>
+      )}
+      <main className={`relative ${done ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500` }>
+        <HeroSection />
+      </main>
     </div>
-  )
+  );
 }
-
-export default App
